@@ -79,6 +79,12 @@ public class Answer extends BaseEntity {
         return new DeleteHistory(ContentType.ANSWER, id, writeBy, LocalDateTime.now());
     }
 
+    public void validateWriter(User user) throws CannotDeleteException {
+        if (isNotOwner(user)) {
+            throw new CannotDeleteException("다른 사람이 쓴 답변이 있어 삭제할 수 없습니다.");
+        }
+    }
+
     public Long getId() {
         return id;
     }
@@ -121,11 +127,5 @@ public class Answer extends BaseEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    public void validateWriter(User user) throws CannotDeleteException {
-        if (isNotOwner(user)) {
-            throw new CannotDeleteException("다른 사람이 쓴 답변이 있어 삭제할 수 없습니다.");
-        }
     }
 }
