@@ -7,6 +7,7 @@ import qna.fixture.UserTestFixture;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class QuestionTest {
     @Test
@@ -30,14 +31,19 @@ class QuestionTest {
         question.addAnswer(answer1);
         question.addAnswer(answer2);
 
-        assertThat(question.isDeleted()).isFalse();
-        assertThat(answer1.isDeleted()).isFalse();
-        assertThat(answer2.isDeleted()).isFalse();
+        assertAll(
+                () -> assertThat(question.isDeleted()).isFalse(),
+                () -> assertThat(answer1.isDeleted()).isFalse(),
+                () -> assertThat(answer2.isDeleted()).isFalse()
+        );
+
 
         question.delete(writer);
 
-        assertThat(question.isDeleted()).isTrue();
-        assertThat(answer1.isDeleted()).isTrue();
-        assertThat(answer2.isDeleted()).isTrue();
+        assertAll(
+                () -> assertThat(question.isDeleted()).isTrue(),
+                () -> assertThat(answer1.isDeleted()).isTrue(),
+                () -> assertThat(answer2.isDeleted()).isTrue()
+        );
     }
 }
