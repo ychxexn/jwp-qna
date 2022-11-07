@@ -46,8 +46,8 @@ public class Answer extends BaseEntity {
         this.contents = contents;
     }
 
-    public boolean isOwner(User writer) {
-        return this.writeBy.equals(writer);
+    public boolean isNotOwner(User writer) {
+        return !this.writeBy.equals(writer);
     }
 
     public void toQuestion(Question question) {
@@ -71,7 +71,7 @@ public class Answer extends BaseEntity {
     }
 
     public DeleteHistory delete(User user) throws CannotDeleteException {
-        if (!isOwner(user)) {
+        if (isNotOwner(user)) {
             throw new CannotDeleteException("다른 사람이 쓴 답변이 있어 삭제할 수 없습니다.");
         }
 
@@ -124,7 +124,7 @@ public class Answer extends BaseEntity {
     }
 
     public void validateWriter(User user) throws CannotDeleteException {
-        if (!isOwner(user)) {
+        if (isNotOwner(user)) {
             throw new CannotDeleteException("다른 사람이 쓴 답변이 있어 삭제할 수 없습니다.");
         }
     }
