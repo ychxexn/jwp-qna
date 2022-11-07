@@ -38,14 +38,16 @@ public class Answers {
     }
 
     public void addAnswer(Answer answer) {
+        if (answers.contains(answer)) {
+            return;
+        }
         answers.add(answer);
     }
 
     public void removeAnswer(Answer answer) {
+        if (!answers.contains(answer)) {
+            return;
+        }
         answers.remove(answer);
-    }
-
-    public boolean contains(Answer answer) {
-        return answers.contains(answer);
     }
 }

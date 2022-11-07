@@ -33,7 +33,7 @@ public class Question extends BaseEntity {
         this.writeBy = writeBy;
         this.title = title;
         this.contents = contents;
-        this.answers = new Answers(new ArrayList<>());
+        this.answers = new Answers();
     }
 
     public Question writeBy(User writer) {
@@ -46,17 +46,11 @@ public class Question extends BaseEntity {
     }
 
     public void addAnswer(Answer answer) {
-        if (answers.contains(answer)) {
-            return;
-        }
         answers.addAnswer(answer);
         answer.toQuestion(this);
     }
 
     public void removeAnswer(Answer answer) {
-        if (!answers.contains(answer)) {
-            return;
-        }
         answers.removeAnswer(answer);
         answer.toQuestion(null);
     }
